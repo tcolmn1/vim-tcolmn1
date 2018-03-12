@@ -37,7 +37,7 @@ set guifont=Courier_New:h12
 set guifontwide=NSimsun:h12
 :map <F7> <Esc>:s/[^0-9]//g<Esc>A<Esc>:noh<Esc>A
 set path=H:\1_work_daddy\**
-set backupdir=H:\0_Archive
+"set backupdir=H:\0_Archive
 set directory=.,$TEMP
 set diffopt+=iwhite
 set equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
