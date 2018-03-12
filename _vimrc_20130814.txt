@@ -1,0 +1,45 @@
+set nocompatible
+source $VIMRUNTIME/vimrc_example.vim
+source $VIMRUNTIME/mswin.vim
+behave mswin
+
+set diffexpr=MyDiff()
+function MyDiff()
+  let opt = '-a --binary '
+  if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
+  if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
+  let arg1 = v:fname_in
+  if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
+  let arg2 = v:fname_new
+  if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
+  let arg3 = v:fname_out
+  if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
+  let eq = ''
+  if $VIMRUNTIME =~ ' '
+    if &sh =~ '\<cmd'
+      let cmd = '""' . $VIMRUNTIME . '\diff"'
+      let eq = '"'
+    else
+      let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
+    endif
+  else
+    let cmd = $VIMRUNTIME . '\diff'
+  endif
+  silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
+endfunction
+
+"colorscheme elflord
+colorscheme rootwater
+
+inoremap <F8> <C-R>=strftime("%Y/%m/%d %H:%M:%S")<CR>
+set encoding=utf-8 fileencodings=utf-8,latin1
+set guifont=Courier_New:h12
+set guifontwide=NSimsun:h12
+:map <F7> <Esc>:s/[^0-9]//g<Esc>A<Esc>:noh<Esc>A
+set path=H:\1_work_daddy\**
+set backupdir=H:\0_Archive
+set directory=.,$TEMP
+set diffopt+=iwhite
+set equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
+au FileType xml setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
+
